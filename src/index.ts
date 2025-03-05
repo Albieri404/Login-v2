@@ -1,7 +1,14 @@
-import { Elysia } from "elysia";
+import express from  "express"
+import cors from "cors"
+import authRouter from "./routers/authRouter"
 
-const app = new Elysia().get("/", () => "Hello Elysia").listen(3000);
+const port = Number(process.env.PORT) || 4000 
+const app = express()
 
-console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
-);
+app.use(cors());
+
+app.use('/api/auth', authRouter)
+
+app.listen(port, () => {
+  console.log(`Server runnig on port: ${port}`)
+})
